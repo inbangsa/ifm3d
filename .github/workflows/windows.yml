@@ -26,9 +26,11 @@ jobs:
       run: mkdir c:\deps\install
     
     - name: install PCL All in one installer
-      $Url = "https://github.com/PointCloudLibrary/pcl/releases/download/pcl-1.9.0/PCL-1.9.0-AllInOne-msvc2017-win64.exe"
-      (New-Object System.Net.WebClient).DownloadFile($Url, "$env:TEMP\pcl_all_in_one.exe")
-      Start-Process -Wait -FilePath "$env:TEMP\pcl_all_in_one.exe" "/SILENT","/SP-","/SUPPRESSMSGBOXES","/DIR=c:\deps
+      shell: cmd
+      run: |
+        $Url = "https://github.com/PointCloudLibrary/pcl/releases/download/pcl-1.9.0/PCL-1.9.0-AllInOne-msvc2017-win64.exe"
+        (New-Object System.Net.WebClient).DownloadFile($Url, "$env:TEMP\pcl_all_in_one.exe")
+        Start-Processs -Wait -FilePath "$env:TEMP\pcl_all_in_one.exe" "/SILENT","/SP-","/SUPPRESSMSGBOXES","/DIR=c:\deps
       
     - name: Build dependency - OpenCV
       if: steps.get-dep-cache.outputs.cache-hit != 'true'
