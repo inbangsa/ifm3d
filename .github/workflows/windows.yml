@@ -29,8 +29,8 @@ jobs:
       run: |
         $Url = "https://github.com/PointCloudLibrary/pcl/releases/download/pcl-1.9.0/PCL-1.9.0-AllInOne-msvc2017-win64.exe"
         (New-Object System.Net.WebClient).DownloadFile($Url, "$env:TEMP\pcl_all_in_one.exe")
-        Start-Process -Wait -FilePath "$env:TEMP\pcl_all_in_one.exe" "/S","/D=c:\deps\PCL"
-        DIR c:\deps\PCL
+        #Start-Process -Wait -FilePath "$env:TEMP\pcl_all_in_one.exe" "/S","/D=c:\deps\PCL"
+        DIR "$env:TEMP"
       
     - name: Build dependency - OpenCV
       if: steps.get-dep-cache.outputs.cache-hit != 'true'
