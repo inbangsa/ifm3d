@@ -31,7 +31,7 @@ jobs:
       run: |
         $Url = "https://github.com/PointCloudLibrary/pcl/releases/download/pcl-1.9.0/PCL-1.9.0-AllInOne-msvc2017-win64.exe"
         (New-Object System.Net.WebClient).DownloadFile($Url, "c:\deps\pcl_all_in_one.exe")
-        Get-ChildItem "$env:TEMP" | Unblock-File
+        Get-ChildItem "c:\deps" | Unblock-File
         Start-Process -Wait -FilePath "c:\deps\pcl_all_in_one.exe" -ArgumentList "/S /D=c:\deps\PCL"
         DIR c:\deps
       
