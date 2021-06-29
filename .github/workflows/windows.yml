@@ -29,11 +29,12 @@ jobs:
     
     - name: install PCL All in one installer
       run: |
-        $Url = "https://github.com/PointCloudLibrary/pcl/releases/download/pcl-1.9.0/PCL-1.9.0-AllInOne-msvc2017-win64.exe"
-        (New-Object System.Net.WebClient).DownloadFile($Url, "c:\deps\pcl_all_in_one.exe")
-        Get-ChildItem "c:\deps" | Unblock-File
-        Start-Process -Wait -FilePath "c:\deps\pcl_all_in_one.exe" -ArgumentList "/S /D=c:\deps\PCL" -NoNewWindow
-        DIR c:\deps
+       $Url = "https://sourceforge.net/projects/boost/files/boost-binaries/1.72.0/boost_1_72_0-msvc-14.1-64.exe"
+       (New-Object System.Net.WebClient).DownloadFile($Url, "$env:TEMP\boost.exe")
+       Get-ChildItem "$env:TEMP\boost.exe" | Unblock-File
+       Start-Process -Wait -FilePath "$env:TEMP\boost.exe" "/SILENT","/SP-","/SUPPRESSMSGBOXES","/DIR=c:\deps"
+       #Start-Process -Wait -FilePath "c:\deps\pcl_all_in_one.exe" -ArgumentList "/S /D=c:\deps\PCL" -NoNewWindow
+       DIR c:\deps
       
     - name: Build dependency - OpenCV
       if: steps.get-dep-cache.outputs.cache-hit != 'true'
