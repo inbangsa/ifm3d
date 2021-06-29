@@ -31,9 +31,9 @@ jobs:
       run: |
        $Url = "https://sourceforge.net/projects/boost/files/boost-binaries/1.72.0/boost_1_72_0-msvc-14.1-64.exe"
        (New-Object System.Net.WebClient).DownloadFile($Url, "$env:TEMP\boost.exe")
-       Get-ChildItem "$env:TEMP\boost.exe" | Unblock-File
+       # Get-ChildItem "$env:TEMP\boost.exe" | Unblock-File
        Start-Process -Wait -FilePath "$env:TEMP\boost.exe" "/SILENT","/SP-","/SUPPRESSMSGBOXES","/DIR=c:\deps"
-       #Start-Process -Wait -FilePath "c:\deps\pcl_all_in_one.exe" -ArgumentList "/S /D=c:\deps\PCL" -NoNewWindow
+       # Start-Process -Wait -FilePath "c:\deps\pcl_all_in_one.exe" -ArgumentList "/S /D=c:\deps\PCL" -NoNewWindow
        DIR c:\deps
        DIR "$env:TEMP"
       
