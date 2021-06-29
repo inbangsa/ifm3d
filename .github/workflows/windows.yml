@@ -35,6 +35,7 @@ jobs:
        Start-Process -Wait -FilePath "$env:TEMP\boost.exe" "/SILENT","/SP-","/SUPPRESSMSGBOXES","/DIR=c:\deps"
        #Start-Process -Wait -FilePath "c:\deps\pcl_all_in_one.exe" -ArgumentList "/S /D=c:\deps\PCL" -NoNewWindow
        DIR c:\deps
+       DIR "$env:TEMP"
       
     - name: Build dependency - OpenCV
       if: steps.get-dep-cache.outputs.cache-hit != 'true'
