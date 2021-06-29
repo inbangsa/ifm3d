@@ -26,17 +26,20 @@ jobs:
       run: |
         mkdir c:\deps\install
         mkdir c:\deps\PCL
+        IF EXIST c:\deps\Boost RMDIR /S /Q c:\deps\Boost
+        mkdir c:\deps\Boost
     
     - name: install PCL All in one installer
       run: |
        $Url = "https://sourceforge.net/projects/boost/files/boost-binaries/1.72.0/boost_1_72_0-msvc-14.1-64.exe"
        (New-Object System.Net.WebClient).DownloadFile($Url, "$env:TEMP\boost.exe")
        # Get-ChildItem "$env:TEMP\boost.exe" | Unblock-File
-       Start-Process -Wait -FilePath "$env:TEMP\boost.exe" -ArgumentList "/silent /sp- /suppressmsgboxes /dir=c:\deps /log=c:\deps\log.txt"
+       Start-Process -Wait -FilePath "$env:TEMP\boost.exe" -ArgumentList "/silent /sp- /suppressmsgboxes /dir=c:\deps\Boost /log=c:\deps\log.txt"
        # Start-Process -Wait -FilePath "c:\deps\pcl_all_in_one.exe" -ArgumentList "/S /D=c:\deps\PCL" -NoNewWindow
        type c:\deps\log.txt
        DIR c:\deps
        DIR "$env:TEMP"
+       DIR c:\deps\Boost
       
     - name: Build dependency - OpenCV
       if: steps.get-dep-cache.outputs.cache-hit != 'true'
